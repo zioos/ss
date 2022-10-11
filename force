@@ -1,0 +1,179 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("KindaVoids", "Midnight")
+
+local main = Window:NewTab("Main")
+local mas = main:NewSection("Main Scripts")
+
+local speed = Window:NewTab("CFrame Speed")
+local rs = speed:NewSection("Npc Speed")
+
+rs:NewButton("CFrame (Z)", "Speed Hack With CFrame", function()
+    	repeat
+		wait()
+	until game:IsLoaded()
+	local L_134_ = game:service('Players')
+	local L_135_ = L_134_.LocalPlayer
+	repeat
+		wait()
+	until L_135_.Character
+	local L_136_ = game:service('UserInputService')
+	local L_137_ = game:service('RunService')
+	getgenv().Multiplier = 0.5
+	local L_138_ = true
+	local L_139_
+	L_136_.InputBegan:connect(function(L_140_arg0)
+		if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
+			Multiplier = Multiplier + 0.01
+			print(Multiplier)
+			wait(0.2)
+			while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
+				wait()
+				Multiplier = Multiplier + 0.01
+				print(Multiplier)
+			end
+		end
+		if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
+			Multiplier = Multiplier - 0.01
+			print(Multiplier)
+			wait(0.2)
+			while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
+				wait()
+				Multiplier = Multiplier - 0.01
+				print(Multiplier)
+			end
+		end
+		if L_140_arg0.KeyCode == Enum.KeyCode.Z then
+			L_138_ = not L_138_
+			if L_138_ == true then
+				repeat
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
+					game:GetService("RunService").Stepped:wait()
+				until L_138_ == false
+			end
+		end
+	end)
+end)
+
+rs:NewSlider("CFrame Speed ", "SliderInfo", 5, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    getgenv().Multiplier = s
+end)
+
+mas:NewButton("Noclip", "Jump infinite times", function()
+
+local noclip = true
+char = game.Players.LocalPlayer.Character
+while true do
+    if noclip == true then
+        for _, v in pairs(char:children()) do
+            pcall(
+                function()
+                    if v.className == "Part" then
+                        v.CanCollide = false
+                    elseif v.ClassName == "Model" then
+                        v.Head.CanCollide = false
+                    end
+                end
+            )
+        end
+    end
+    game:service("RunService").Stepped:wait()
+end
+end)
+
+rs:NewButton("CFrame Fly (X)", "Flies on your screen, tps on others", function()
+local Speed = 90
+
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LegitH3x0R/Roblox-Scripts/main/AEBypassing/RootAnchor.lua"))()
+local UIS = game:GetService("UserInputService")
+local OnRender = game:GetService("RunService").RenderStepped
+
+local Player = game:GetService("Players").LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+
+
+local Camera = workspace.CurrentCamera
+local Root = Character:WaitForChild("HumanoidRootPart")
+
+local C1, C2, C3;
+local Nav = {Flying = false, Forward = false, Backward = false, Left = false, Right = false}
+C1 = UIS.InputBegan:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.Keyboard then
+        if Input.KeyCode == Enum.KeyCode.X then
+            Nav.Flying = not Nav.Flying
+            Root.Anchored = Nav.Flying
+        elseif Input.KeyCode == Enum.KeyCode.W then
+            Nav.Forward = true
+        elseif Input.KeyCode == Enum.KeyCode.S then
+            Nav.Backward = true
+        elseif Input.KeyCode == Enum.KeyCode.A then
+            Nav.Left = true
+        elseif Input.KeyCode == Enum.KeyCode.D then
+            Nav.Right = true
+        end
+    end
+end)
+
+C2 = UIS.InputEnded:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.Keyboard then
+        if Input.KeyCode == Enum.KeyCode.W then
+            Nav.Forward = false
+        elseif Input.KeyCode == Enum.KeyCode.S then
+            Nav.Backward = false
+        elseif Input.KeyCode == Enum.KeyCode.A then
+            Nav.Left = false
+        elseif Input.KeyCode == Enum.KeyCode.D then
+            Nav.Right = false
+        end
+    end
+end)
+
+C3 = Camera:GetPropertyChangedSignal("CFrame"):Connect(function()
+    if Nav.Flying then
+        Root.CFrame = CFrame.new(Root.CFrame.Position, Root.CFrame.Position + Camera.CFrame.LookVector)
+    end
+end)
+
+while true do -- not EndAll
+    local Delta = OnRender:Wait()
+    if Nav.Flying then
+        if Nav.Forward then
+            Root.CFrame = Root.CFrame + (Camera.CFrame.LookVector * (Delta * Speed))
+        end
+        if Nav.Backward then
+            Root.CFrame = Root.CFrame + (-Camera.CFrame.LookVector * (Delta * Speed))
+        end
+        if Nav.Left then
+            Root.CFrame = Root.CFrame + (-Camera.CFrame.RightVector * (Delta * Speed))
+        end
+        if Nav.Right then
+            Root.CFrame = Root.CFrame + (Camera.CFrame.RightVector * (Delta * Speed))
+        end
+    end
+end
+end)
+
+mas:NewButton("Infjump", "Jump infinite times", function()
+local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
+
+_G.JumpHeight = 50;
+
+function Action(Object, Function) if Object ~= nil then Function(Object); end end
+
+UIS.InputBegan:connect(function(UserInput)
+    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+        Action(Player.Character.Humanoid, function(self)
+            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                Action(self.Parent.HumanoidRootPart, function(self)
+                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                end)
+            end
+        end)
+    end
+end)
+end)
+
+mas:NewKeybind("Toggle UI", "KeybindInfo", Enum.KeyCode.V, function()
+	Library.ToggleUI()
+end)
