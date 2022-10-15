@@ -10,6 +10,7 @@ local rs = speed:NewSection("Npc Speed")
 local terro = Window:NewTab("Territories Farming")
 local trr = terro:NewSection("Stuff for Territories")
 local frr = terro:NewSection("Teleports for Territories")
+local hrr = terro:NewSection("Teleports for Hills")
 
 rs:NewButton("CFrame (Z)", "Speed Hack With CFrame", function()
     	repeat
@@ -184,10 +185,16 @@ end)
 
 trr:NewButton("Floor", "Puts a floor under all territories", function()
 local Module_Scripts = {}
-local Part = Instance.new("Part")
-local Part2 = Instance.new("Part")
-local Part3 = Instance.new("Part")
-local Part4 = Instance.new("Part")
+local Part = Instance.new("Part") --TERRITORIES
+local Part2 = Instance.new("Part") --TERRITORIES 
+local Part3 = Instance.new("Part") --TERRITORIES
+local Part4 = Instance.new("Part") --TERRITORIES
+local Part5 = Instance.new("Part") --KIRA HILL
+local Part6 = Instance.new("Part") --TATTOINE HILL 1
+local Part7 = Instance.new("Part") --TATTOINE HILL 2
+local Part8 = Instance.new("Part") --ILLUM HILL
+local Part9 = Instance.new("Part") --KASHYYK HILL
+
 local LocalScript = Instance.new("LocalScript")
 
 	      -- Properties --
@@ -235,6 +242,62 @@ Part4.Parent = workspace
 Part4.Position = Vector3.new(-1199.67578125, 1636.7503662109375, -856.88623046875)
 Part4.Size = Vector3.new(100, 1, 100)
 Part4.TopSurface = Enum.SurfaceType.Smooth
+
+Part5.Anchored = true
+Part5.BottomSurface = Enum.SurfaceType.Smooth
+Part5.BrickColor = BrickColor.new([[Bright green]])
+Part5.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part5.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part5.Material = Enum.Material.Grass
+Part5.Parent = workspace
+Part5.Position = Vector3.new(425.2928771972656, 1598.164306640625, 1865.377685546875)
+Part5.Size = Vector3.new(100, 1, 100)
+Part5.TopSurface = Enum.SurfaceType.Smooth
+
+Part6.Anchored = true
+Part6.BottomSurface = Enum.SurfaceType.Smooth
+Part6.BrickColor = BrickColor.new([[Bright green]])
+Part6.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part6.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part6.Material = Enum.Material.Grass
+Part6.Parent = workspace
+Part6.Position = Vector3.new(7445.36181640625, 1659.995849609375, 5274.8115234375)
+Part6.Size = Vector3.new(100, 1, 100)
+Part6.TopSurface = Enum.SurfaceType.Smooth
+
+Part7.Anchored = true
+Part7.BottomSurface = Enum.SurfaceType.Smooth
+Part7.BrickColor = BrickColor.new([[Bright green]])
+Part7.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part7.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part7.Material = Enum.Material.Grass
+Part7.Parent = workspace
+Part7.Position = Vector3.new(7633.02978515625, 1638.10595703125, 4380.2158203125)
+Part7.Size = Vector3.new(100, 1, 100)
+Part7.TopSurface = Enum.SurfaceType.Smooth
+
+Part8.Anchored = true
+Part8.BottomSurface = Enum.SurfaceType.Smooth
+Part8.BrickColor = BrickColor.new([[Bright green]])
+Part8.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part8.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part8.Material = Enum.Material.Grass
+Part8.Parent = workspace
+Part8.Position = Vector3.new(-572.7197265625, 1690.5789794921875, -7083.59033203125)
+Part8.Size = Vector3.new(100, 1, 100)
+Part8.TopSurface = Enum.SurfaceType.Smooth
+
+Part9.Anchored = true
+Part9.BottomSurface = Enum.SurfaceType.Smooth
+Part9.BrickColor = BrickColor.new([[Bright green]])
+Part9.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part9.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part9.Material = Enum.Material.Grass
+Part9.Parent = workspace
+Part9.Position = Vector3.new(-5960.37646484375, 1678.9237060546875, -3537.199951171875)
+Part9.Size = Vector3.new(100, 1, 100)
+Part9.TopSurface = Enum.SurfaceType.Smooth
+
 end)
 
 frr:NewButton("Arrendehl TP", "Teleport to arrendehl ", function()
@@ -251,4 +314,20 @@ end)
 
 frr:NewButton("ToG TP", "Teleport to Tower of God ", function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6127.904296875, 1814.6807861328125, -1472.3385009765625)
+end)
+
+hrr:NewButton("Hill Kira TP", "Teleport to Kira Hill ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(425.2928771972656, 1600.164306640625, 1865.377685546875) --HILL KIRA
+end)
+hrr:NewButton("Hill Tattoine1 TP", "Teleport to Tatooine1 Hill ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7445.36181640625, 1663.995849609375, 5274.8115234375) --HILL TATTOINE1
+end)
+hrr:NewButton("Hill Tattoine2 TP", "Teleport to Tatooine2 Hill ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7633.02978515625, 1647.10595703125, 4380.2158203125) --HILL TATTOINE2
+end)
+hrr:NewButton("Hill Ilum TP", "Teleport to Ilum Hill ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-572.7197265625, 1695.5789794921875, -7083.59033203125) --HILL ILUM
+end)
+hrr:NewButton("Hill Kashyyk TP", "Teleport to Kashyyk Hill ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5960.37646484375, 1678.9237060546875, -3537.199951171875) --HILL KASHYYK
 end)
