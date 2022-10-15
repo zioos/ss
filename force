@@ -7,6 +7,10 @@ local mas = main:NewSection("Main Scripts")
 local speed = Window:NewTab("CFrame Speed")
 local rs = speed:NewSection("Npc Speed")
 
+local terro = Window:NewTab("Territories Farming")
+local trr = terro:NewSection("Stuff for Territories")
+local frr = terro:NewSection("Teleports for Territories")
+
 rs:NewButton("CFrame (Z)", "Speed Hack With CFrame", function()
     	repeat
 		wait()
@@ -176,4 +180,75 @@ end)
 
 mas:NewKeybind("Toggle UI", "KeybindInfo", Enum.KeyCode.V, function()
 	Library.ToggleUI()
+end)
+
+trr:NewButton("Floor", "Puts a floor under all territories", function()
+local Module_Scripts = {}
+local Part = Instance.new("Part")
+local Part2 = Instance.new("Part")
+local Part3 = Instance.new("Part")
+local Part4 = Instance.new("Part")
+local LocalScript = Instance.new("LocalScript")
+
+	      -- Properties --
+
+Part.Anchored = true
+Part.BottomSurface = Enum.SurfaceType.Smooth
+Part.BrickColor = BrickColor.new([[Bright green]])
+Part.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part.Material = Enum.Material.Grass
+Part.Parent = workspace
+Part.Position = Vector3.new(-1192.0870361328125, 1669.056396484375, -7992.3671875)
+Part.Size = Vector3.new(100, 1, 100)
+Part.TopSurface = Enum.SurfaceType.Smooth
+
+Part2.Anchored = true
+Part2.BottomSurface = Enum.SurfaceType.Smooth
+Part2.BrickColor = BrickColor.new([[Bright green]])
+Part2.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part2.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part2.Material = Enum.Material.Grass
+Part2.Parent = workspace
+Part2.Position = Vector3.new(-6127.904296875, 1811.6807861328125, -1472.3385009765625)
+Part2.Size = Vector3.new(100, 1, 100)
+Part2.TopSurface = Enum.SurfaceType.Smooth
+
+Part3.Anchored = true
+Part3.BottomSurface = Enum.SurfaceType.Smooth
+Part3.BrickColor = BrickColor.new([[Bright green]])
+Part3.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part3.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part3.Material = Enum.Material.Grass
+Part3.Parent = workspace
+Part3.Position = Vector3.new(6712.2255859375, 1655.433837890625, 6076.82421875)
+Part3.Size = Vector3.new(100, 1, 100)
+Part3.TopSurface = Enum.SurfaceType.Smooth
+
+Part4.Anchored = true
+Part4.BottomSurface = Enum.SurfaceType.Smooth
+Part4.BrickColor = BrickColor.new([[Bright green]])
+Part4.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Part4.Color = Color3.new(0.294118, 0.592157, 0.294118)
+Part4.Material = Enum.Material.Grass
+Part4.Parent = workspace
+Part4.Position = Vector3.new(-1199.67578125, 1636.7503662109375, -856.88623046875)
+Part4.Size = Vector3.new(100, 1, 100)
+Part4.TopSurface = Enum.SurfaceType.Smooth
+end)
+
+frr:NewButton("Arrendehl TP", "Teleport to arrendehl ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1195.0460205078125, 1672.976318359375, -7990.0791015625)
+end)
+
+frr:NewButton("Arabah TP", "Teleport to arabah ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(6712.2255859375, 1659.433837890625, 6076.82421875)
+end)
+
+frr:NewButton("Gunjo TP", "Teleport to Fort Gunjo ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1199.67578125, 1639.7503662109375, -856.88623046875)
+end)
+
+frr:NewButton("ToG TP", "Teleport to Tower of God ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6127.904296875, 1814.6807861328125, -1472.3385009765625)
 end)
