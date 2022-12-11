@@ -432,10 +432,10 @@ function Library:create(options)
 	end
 
 	options = self:set_defaults({
-		Name = "KindaVoids",
+		Name = "NIHILUM",
 		Size = UDim2.fromOffset(600, 400),
 		Theme = self.Themes[settings.Theme],
-		Link = "https://kindavoids.cc/script"
+		Link = "https://nihilum.cc/script"
 	}, options)
 
 	if getgenv and getgenv().MercuryUI then
