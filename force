@@ -1,146 +1,212 @@
-local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
- 
--- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
-if playerGui:FindFirstChild("TadachiisESP") then
-    playerGui:FindFirstChild("TadachiisESP"):Destroy()
- 
-    for _, player in ipairs(game.Players:GetPlayers()) do
-        local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
-        if billboardGui then
-            billboardGui:Destroy()
-        end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Consistt/Ui/main/UnLeaked"))()
+
+
+library.rank = "User"
+local Wm = library:Watermark("Jew Mode | v" .. library.version ..  " | " .. library:GetUsername() .. " | rank: " .. library.rank)
+local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
+coroutine.wrap(function()
+    while wait(.75) do
+        FpsWm:Text("fps: " .. library.fps)
     end
-end
- 
--- create ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TadachiisESP"
-screenGui.Parent = playerGui
-screenGui.DisplayOrder = 1
- 
--- create Frame
-local holder = Instance.new("Frame")
-holder.Name = "Holder"
-holder.Parent = screenGui
-holder.Size = UDim2.new(0, 200, 0, 100) -- size of the frame
-holder.Position = UDim2.new(0.5, -100, 0.5, -50) -- position of the frame at the center of the screen
-holder.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
-holder.BackgroundTransparency = 0.5 -- semi-transparent
-holder.Draggable = true -- makes the frame draggable
-holder.Active = true
- 
--- create TextLabel
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Name = "TitleLabel"
-titleLabel.Text = "Tadachii's ESP GUI"
-titleLabel.TextScaled = true
-titleLabel.Parent = holder
-titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame
-titleLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
-titleLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
-titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
- 
--- create TextLabel for Status
-local statusLabel = Instance.new("TextLabel")
-statusLabel.Name = "StatusLabel"
-statusLabel.Text = ""
-statusLabel.Parent = holder
-statusLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the TitleLabel
-statusLabel.Position = UDim2.new(0, 0, 0.5, 0) -- aligns the text label to the bottom of the frame
-statusLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
-statusLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
-statusLabel.BackgroundTransparency = 0.5 -- semi-transparent
-statusLabel.TextScaled = true -- enable text scaling for the status label
- 
--- create TextButton for Status
-local statusButton = Instance.new("TextButton")
-statusButton.Name = "StatusButton"
-statusButton.Text = "Off"
-statusButton.Parent = holder
-statusButton.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the StatusLabel
-statusButton.Position = UDim2.new(0, 0, 0.75, 0) -- aligns the button to the bottom of the frame
-statusButton.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
-statusButton.TextColor3 = Color3.new(0, 0, 0) -- black text
-statusButton.BackgroundTransparency = 0.5 -- semi-transparent
-statusButton.TextScaled = true -- enable text scaling for the button
- 
--- Function to create BillboardGui for a player with name and distance
-local function createBillboardGuiForPlayer(player, distance)
-    local billboardGui = Instance.new("BillboardGui")
-    billboardGui.Name = "PlayerBillboardGui"
-    billboardGui.Adornee = player.Character.Head
-    billboardGui.Size = UDim2.new(0, 100, 0, 50) -- fixed size for the BillboardGui
-    billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- adjust the vertical offset as needed
-    billboardGui.AlwaysOnTop = true
-    billboardGui.LightInfluence = 1
-    billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    billboardGui.Parent = player.Character.Head
- 
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Name = "PlayerNameLabel"
-    textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.BackgroundTransparency = 1 -- transparent background
-    textLabel.TextColor3 = Color3.new(1, 0, 0) -- red text for the player's name
-    textLabel.TextScaled = true
-    textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
-    textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
-    textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
-    textLabel.Parent = billboardGui
-end
- 
--- Function to update player ESP distance
-local function updatePlayerESP()
-    local localCharacter = game.Players.LocalPlayer.Character
-    if not localCharacter then
-        return
-    end
- 
-    for _, player in ipairs(game.Players:GetPlayers()) do
-        if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
-            local distance = (localCharacter.Head.Position - player.Character.Head.Position).Magnitude
-            local billboardGui = player.Character.Head:FindFirstChild("PlayerBillboardGui")
-            if billboardGui then
-                billboardGui.PlayerNameLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
-                billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- Set the text color to red
-                billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On" -- Update visibility based on StatusButton
-            else
-                createBillboardGuiForPlayer(player, distance)
-            end
-        end
-    end
-end
- 
--- Call updatePlayerESP() initially and then schedule it to be called every 0.01 seconds
-updatePlayerESP()
-game:GetService("RunService").Heartbeat:Connect(function()
-    updatePlayerESP()
+end)()
+
+
+local Notif = library:InitNotifications()
+
+local LoadingXSX = Notif:Notify("Loading Jew Mode, please be patient.", 5, "information") 
+
+library.title = "Jew Mode"
+
+library:Introduction()
+wait(1)
+local Init = library:Init()
+
+local Tab1 = Init:NewTab("Settings")
+local Tab2 = Init:NewTab("Gameplay")
+local Tab3 = Init:NewTab("Teleports")
+
+
+--TAB 1
+--TAB 1
+--TAB 1
+
+local Section1 = Tab1:NewSection("Welcome to Jew Mode")
+
+
+local Label1 = Tab1:NewLabel("Type Shit", "center")--"left", "center", "right"
+
+
+local TP1 = Tab1:NewButton("Abime Boss Room", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.17662048339844, 4538.232421875, -2731.349609375
+) --ABIME BOSS ROOM
 end)
- 
--- Now, you can add functionality to the button, for example:
-local function onButtonClicked()
-    if statusButton.Text == "Off" then
-        statusButton.Text = "On"
-        -- Add code to enable the player ESP here
-    else
-        statusButton.Text = "Off"
-        -- Add code to disable the player ESP here
-        
-        -- Remove BillboardGui for each player's head when disabling the ESP
-        for _, player in ipairs(game.Players:GetPlayers()) do
-            local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
-            if billboardGui then
-                billboardGui:Destroy()
+
+--TAB 2
+--TAB 2
+--TAB 2
+local Section3 = Tab2:NewSection("CFrame")
+
+local CFr = Tab2:NewButton("CFrame", function()
+local L_134_ = game:service('Players')
+local L_135_ = L_134_.LocalPlayer
+repeat
+    wait()
+until L_135_.Character
+local L_136_ = game:service('UserInputService')
+local L_137_ = game:service('RunService')
+getgenv().Multiplier = 0.5
+local L_138_ = true
+local L_139_
+L_136_.InputBegan:connect(function(L_140_arg0)
+    if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
+        Multiplier = Multiplier + 0.01
+        print(Multiplier)
+        wait(0.2)
+        while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
+            wait()
+            Multiplier = Multiplier + 0.01
+            print(Multiplier)
+        end
+    end
+    if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
+        Multiplier = Multiplier - 0.01
+        print(Multiplier)
+        wait(0.2)
+        while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
+            wait()
+            Multiplier = Multiplier - 0.01
+            print(Multiplier)
+        end
+    end
+    if L_140_arg0.KeyCode == Enum.KeyCode.Z then
+        L_138_ = not L_138_
+        if L_138_ == true then
+            repeat
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
+                game:GetService("RunService").Stepped:wait()
+            until L_138_ == false
+        end
+    end
+end)
+end)
+
+local Slider1 = Tab2:NewSlider("CFrame Speed", "", true, "/", {min = 1, max = 10, default = 1}, function(cfrmspd)
+    getgenv().Multiplier = cfrmspd
+end)
+
+local Section3 = Tab2:NewSection("FLY")
+local Flyz = Tab2:NewButton("FLY (X)", function()
+    local Speed = 90
+
+
+    local UIS = game:GetService("UserInputService")
+    local OnRender = game:GetService("RunService").RenderStepped
+    
+    local Player = game:GetService("Players").LocalPlayer
+    local Character = Player.Character or Player.CharacterAdded:Wait()
+    
+    
+    local Camera = workspace.CurrentCamera
+    local Root = Character:WaitForChild("HumanoidRootPart")
+    
+    local C1, C2, C3;
+    local Nav = {Flying = false, Forward = false, Backward = false, Left = false, Right = false}
+    C1 = UIS.InputBegan:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.Keyboard then
+            if Input.KeyCode == Enum.KeyCode.X then
+                Nav.Flying = not Nav.Flying
+                Root.Anchored = Nav.Flying
+            elseif Input.KeyCode == Enum.KeyCode.W then
+                Nav.Forward = true
+            elseif Input.KeyCode == Enum.KeyCode.S then
+                Nav.Backward = true
+            elseif Input.KeyCode == Enum.KeyCode.A then
+                Nav.Left = true
+            elseif Input.KeyCode == Enum.KeyCode.D then
+                Nav.Right = true
+            end
+        end
+    end)
+    
+    C2 = UIS.InputEnded:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.Keyboard then
+            if Input.KeyCode == Enum.KeyCode.W then
+                Nav.Forward = false
+            elseif Input.KeyCode == Enum.KeyCode.S then
+                Nav.Backward = false
+            elseif Input.KeyCode == Enum.KeyCode.A then
+                Nav.Left = false
+            elseif Input.KeyCode == Enum.KeyCode.D then
+                Nav.Right = false
+            end
+        end
+    end)
+    
+    C3 = Camera:GetPropertyChangedSignal("CFrame"):Connect(function()
+        if Nav.Flying then
+            Root.CFrame = CFrame.new(Root.CFrame.Position, Root.CFrame.Position + Camera.CFrame.LookVector)
+        end
+    end)
+    
+    while true do -- not EndAll
+        local Delta = OnRender:Wait()
+        if Nav.Flying then
+            if Nav.Forward then
+                Root.CFrame = Root.CFrame + (Camera.CFrame.LookVector * (Delta * Speed))
+            end
+            if Nav.Backward then
+                Root.CFrame = Root.CFrame + (-Camera.CFrame.LookVector * (Delta * Speed))
+            end
+            if Nav.Left then
+                Root.CFrame = Root.CFrame + (-Camera.CFrame.RightVector * (Delta * Speed))
+            end
+            if Nav.Right then
+                Root.CFrame = Root.CFrame + (Camera.CFrame.RightVector * (Delta * Speed))
             end
         end
     end
-    -- Update the visibility of BillboardGui elements after clicking the button
-    for _, player in ipairs(game.Players:GetPlayers()) do
-        local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
-        if billboardGui then
-            billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On"
-        end
-    end
-end
- 
-statusButton.MouseButton1Click:Connect(onButtonClicked)
+end)
+
+--TAB 3
+--TAB 3
+--TAB 3
+
+local Section2 = Tab3:NewSection("Farm Area/s") -- FARMING AREAS AND SHIT
+
+local TP2 = Tab3:NewButton("Boss Entrance", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-504.4609375, 793.9607543945312, 1424.6019287109375
+)
+end)
+
+local Section2 = Tab3:NewSection("Forge and mats") -- GUN CRAFTING AND ITEM PURCHASE LOCS
+local TP2 = Tab3:NewButton("The Forge", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7224.31005859375, 1801.7960205078125, 2126.786865234375
+)
+end)
+local TP2 = Tab3:NewButton("Beskar", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8204.08203125, 1755.6864013671875, 1707.0662841796875
+)
+end)
+local TP2 = Tab3:NewButton("Durasteel", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(585.304931640625, 1628.6795654296875, 2034.2608642578125
+)
+end)
+local TP2 = Tab3:NewButton("Brylack Wood", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(336.7419128417969, 1804.6424560546875, 763.4169311523438
+)
+end)
+local TP2 = Tab3:NewButton("Plastoid", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1183.8861083984375, 1737.6563720703125, 675.8622436523438
+)
+end)
+local TP2 = Tab3:NewButton("Forge Schematic", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9132.044921875, 1768.9891357421875, 2065.686767578125
+)
+end)
+
+
+
+
+
+
+local FinishedLoading = Notif:Notify("Loaded Jew Mode", 4, "success")
