@@ -1,333 +1,146 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("KindaVoids", "Midnight")
-
-local main = Window:NewTab("Main")
-local mas = main:NewSection("Main Scripts")
-
-local speed = Window:NewTab("CFrame Speed")
-local rs = speed:NewSection("Npc Speed")
-
-local terro = Window:NewTab("Territories Farming")
-local trr = terro:NewSection("Stuff for Territories")
-local frr = terro:NewSection("Teleports for Territories")
-local hrr = terro:NewSection("Teleports for Hills")
-
-rs:NewButton("CFrame (Z)", "Speed Hack With CFrame", function()
-    	repeat
-		wait()
-	until game:IsLoaded()
-	local L_134_ = game:service('Players')
-	local L_135_ = L_134_.LocalPlayer
-	repeat
-		wait()
-	until L_135_.Character
-	local L_136_ = game:service('UserInputService')
-	local L_137_ = game:service('RunService')
-	getgenv().Multiplier = 0.5
-	local L_138_ = true
-	local L_139_
-	L_136_.InputBegan:connect(function(L_140_arg0)
-		if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
-			Multiplier = Multiplier + 0.01
-			print(Multiplier)
-			wait(0.2)
-			while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
-				wait()
-				Multiplier = Multiplier + 0.01
-				print(Multiplier)
-			end
-		end
-		if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
-			Multiplier = Multiplier - 0.01
-			print(Multiplier)
-			wait(0.2)
-			while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
-				wait()
-				Multiplier = Multiplier - 0.01
-				print(Multiplier)
-			end
-		end
-		if L_140_arg0.KeyCode == Enum.KeyCode.Z then
-			L_138_ = not L_138_
-			if L_138_ == true then
-				repeat
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
-					game:GetService("RunService").Stepped:wait()
-				until L_138_ == false
-			end
-		end
-	end)
-end)
-
-rs:NewSlider("CFrame Speed ", "SliderInfo", 5, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
-    getgenv().Multiplier = s
-end)
-
-mas:NewButton("Noclip", "Jump infinite times", function()
-
-local noclip = true
-char = game.Players.LocalPlayer.Character
-while true do
-    if noclip == true then
-        for _, v in pairs(char:children()) do
-            pcall(
-                function()
-                    if v.className == "Part" then
-                        v.CanCollide = false
-                    elseif v.ClassName == "Model" then
-                        v.Head.CanCollide = false
-                    end
-                end
-            )
-        end
-    end
-    game:service("RunService").Stepped:wait()
-end
-end)
-
-rs:NewButton("CFrame Fly (X)", "Flies on your screen, tps on others", function()
-local Speed = 90
-
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/LegitH3x0R/Roblox-Scripts/main/AEBypassing/RootAnchor.lua"))()
-local UIS = game:GetService("UserInputService")
-local OnRender = game:GetService("RunService").RenderStepped
-
-local Player = game:GetService("Players").LocalPlayer
-local Character = Player.Character or Player.CharacterAdded:Wait()
-
-
-local Camera = workspace.CurrentCamera
-local Root = Character:WaitForChild("HumanoidRootPart")
-
-local C1, C2, C3;
-local Nav = {Flying = false, Forward = false, Backward = false, Left = false, Right = false}
-C1 = UIS.InputBegan:Connect(function(Input)
-    if Input.UserInputType == Enum.UserInputType.Keyboard then
-        if Input.KeyCode == Enum.KeyCode.X then
-            Nav.Flying = not Nav.Flying
-            Root.Anchored = Nav.Flying
-        elseif Input.KeyCode == Enum.KeyCode.W then
-            Nav.Forward = true
-        elseif Input.KeyCode == Enum.KeyCode.S then
-            Nav.Backward = true
-        elseif Input.KeyCode == Enum.KeyCode.A then
-            Nav.Left = true
-        elseif Input.KeyCode == Enum.KeyCode.D then
-            Nav.Right = true
-        end
-    end
-end)
-
-C2 = UIS.InputEnded:Connect(function(Input)
-    if Input.UserInputType == Enum.UserInputType.Keyboard then
-        if Input.KeyCode == Enum.KeyCode.W then
-            Nav.Forward = false
-        elseif Input.KeyCode == Enum.KeyCode.S then
-            Nav.Backward = false
-        elseif Input.KeyCode == Enum.KeyCode.A then
-            Nav.Left = false
-        elseif Input.KeyCode == Enum.KeyCode.D then
-            Nav.Right = false
-        end
-    end
-end)
-
-C3 = Camera:GetPropertyChangedSignal("CFrame"):Connect(function()
-    if Nav.Flying then
-        Root.CFrame = CFrame.new(Root.CFrame.Position, Root.CFrame.Position + Camera.CFrame.LookVector)
-    end
-end)
-
-while true do -- not EndAll
-    local Delta = OnRender:Wait()
-    if Nav.Flying then
-        if Nav.Forward then
-            Root.CFrame = Root.CFrame + (Camera.CFrame.LookVector * (Delta * Speed))
-        end
-        if Nav.Backward then
-            Root.CFrame = Root.CFrame + (-Camera.CFrame.LookVector * (Delta * Speed))
-        end
-        if Nav.Left then
-            Root.CFrame = Root.CFrame + (-Camera.CFrame.RightVector * (Delta * Speed))
-        end
-        if Nav.Right then
-            Root.CFrame = Root.CFrame + (Camera.CFrame.RightVector * (Delta * Speed))
+local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ 
+-- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
+if playerGui:FindFirstChild("TadachiisESP") then
+    playerGui:FindFirstChild("TadachiisESP"):Destroy()
+ 
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
+        if billboardGui then
+            billboardGui:Destroy()
         end
     end
 end
-end)
-
-mas:NewButton("Infjump", "Jump infinite times", function()
-local Player = game:GetService'Players'.LocalPlayer;
-local UIS = game:GetService'UserInputService';
-
-_G.JumpHeight = 50;
-
-function Action(Object, Function) if Object ~= nil then Function(Object); end end
-
-UIS.InputBegan:connect(function(UserInput)
-    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
-        Action(Player.Character.Humanoid, function(self)
-            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
-                Action(self.Parent.HumanoidRootPart, function(self)
-                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
-                end)
+ 
+-- create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TadachiisESP"
+screenGui.Parent = playerGui
+screenGui.DisplayOrder = 1
+ 
+-- create Frame
+local holder = Instance.new("Frame")
+holder.Name = "Holder"
+holder.Parent = screenGui
+holder.Size = UDim2.new(0, 200, 0, 100) -- size of the frame
+holder.Position = UDim2.new(0.5, -100, 0.5, -50) -- position of the frame at the center of the screen
+holder.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+holder.BackgroundTransparency = 0.5 -- semi-transparent
+holder.Draggable = true -- makes the frame draggable
+holder.Active = true
+ 
+-- create TextLabel
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Text = "Tadachii's ESP GUI"
+titleLabel.TextScaled = true
+titleLabel.Parent = holder
+titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame
+titleLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+titleLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
+titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
+ 
+-- create TextLabel for Status
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Name = "StatusLabel"
+statusLabel.Text = ""
+statusLabel.Parent = holder
+statusLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the TitleLabel
+statusLabel.Position = UDim2.new(0, 0, 0.5, 0) -- aligns the text label to the bottom of the frame
+statusLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+statusLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
+statusLabel.BackgroundTransparency = 0.5 -- semi-transparent
+statusLabel.TextScaled = true -- enable text scaling for the status label
+ 
+-- create TextButton for Status
+local statusButton = Instance.new("TextButton")
+statusButton.Name = "StatusButton"
+statusButton.Text = "Off"
+statusButton.Parent = holder
+statusButton.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the StatusLabel
+statusButton.Position = UDim2.new(0, 0, 0.75, 0) -- aligns the button to the bottom of the frame
+statusButton.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+statusButton.TextColor3 = Color3.new(0, 0, 0) -- black text
+statusButton.BackgroundTransparency = 0.5 -- semi-transparent
+statusButton.TextScaled = true -- enable text scaling for the button
+ 
+-- Function to create BillboardGui for a player with name and distance
+local function createBillboardGuiForPlayer(player, distance)
+    local billboardGui = Instance.new("BillboardGui")
+    billboardGui.Name = "PlayerBillboardGui"
+    billboardGui.Adornee = player.Character.Head
+    billboardGui.Size = UDim2.new(0, 100, 0, 50) -- fixed size for the BillboardGui
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- adjust the vertical offset as needed
+    billboardGui.AlwaysOnTop = true
+    billboardGui.LightInfluence = 1
+    billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    billboardGui.Parent = player.Character.Head
+ 
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "PlayerNameLabel"
+    textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1 -- transparent background
+    textLabel.TextColor3 = Color3.new(1, 0, 0) -- red text for the player's name
+    textLabel.TextScaled = true
+    textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
+    textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
+    textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
+    textLabel.Parent = billboardGui
+end
+ 
+-- Function to update player ESP distance
+local function updatePlayerESP()
+    local localCharacter = game.Players.LocalPlayer.Character
+    if not localCharacter then
+        return
+    end
+ 
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            local distance = (localCharacter.Head.Position - player.Character.Head.Position).Magnitude
+            local billboardGui = player.Character.Head:FindFirstChild("PlayerBillboardGui")
+            if billboardGui then
+                billboardGui.PlayerNameLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
+                billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- Set the text color to red
+                billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On" -- Update visibility based on StatusButton
+            else
+                createBillboardGuiForPlayer(player, distance)
             end
-        end)
+        end
     end
+end
+ 
+-- Call updatePlayerESP() initially and then schedule it to be called every 0.01 seconds
+updatePlayerESP()
+game:GetService("RunService").Heartbeat:Connect(function()
+    updatePlayerESP()
 end)
-end)
-
-mas:NewKeybind("Toggle UI", "KeybindInfo", Enum.KeyCode.V, function()
-	Library.ToggleUI()
-end)
-
-trr:NewButton("Floor", "Puts a floor under all territories", function()
-local Module_Scripts = {}
-local Part = Instance.new("Part") --TERRITORIES
-local Part2 = Instance.new("Part") --TERRITORIES 
-local Part3 = Instance.new("Part") --TERRITORIES
-local Part4 = Instance.new("Part") --TERRITORIES
-local Part5 = Instance.new("Part") --KIRA HILL
-local Part6 = Instance.new("Part") --TATTOINE HILL 1
-local Part7 = Instance.new("Part") --TATTOINE HILL 2
-local Part8 = Instance.new("Part") --ILLUM HILL
-local Part9 = Instance.new("Part") --KASHYYK HILL
-
-local LocalScript = Instance.new("LocalScript")
-
-	      -- Properties --
-
-Part.Anchored = true
-Part.BottomSurface = Enum.SurfaceType.Smooth
-Part.BrickColor = BrickColor.new([[Bright green]])
-Part.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part.Material = Enum.Material.Grass
-Part.Parent = workspace
-Part.Position = Vector3.new(-1192.0870361328125, 1669.056396484375, -7992.3671875)
-Part.Size = Vector3.new(100, 1, 100)
-Part.TopSurface = Enum.SurfaceType.Smooth
-
-Part2.Anchored = true
-Part2.BottomSurface = Enum.SurfaceType.Smooth
-Part2.BrickColor = BrickColor.new([[Bright green]])
-Part2.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part2.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part2.Material = Enum.Material.Grass
-Part2.Parent = workspace
-Part2.Position = Vector3.new(-6127.904296875, 1811.6807861328125, -1472.3385009765625)
-Part2.Size = Vector3.new(100, 1, 100)
-Part2.TopSurface = Enum.SurfaceType.Smooth
-
-Part3.Anchored = true
-Part3.BottomSurface = Enum.SurfaceType.Smooth
-Part3.BrickColor = BrickColor.new([[Bright green]])
-Part3.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part3.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part3.Material = Enum.Material.Grass
-Part3.Parent = workspace
-Part3.Position = Vector3.new(6712.2255859375, 1655.433837890625, 6076.82421875)
-Part3.Size = Vector3.new(100, 1, 100)
-Part3.TopSurface = Enum.SurfaceType.Smooth
-
-Part4.Anchored = true
-Part4.BottomSurface = Enum.SurfaceType.Smooth
-Part4.BrickColor = BrickColor.new([[Bright green]])
-Part4.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part4.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part4.Material = Enum.Material.Grass
-Part4.Parent = workspace
-Part4.Position = Vector3.new(-1199.67578125, 1636.7503662109375, -856.88623046875)
-Part4.Size = Vector3.new(100, 1, 100)
-Part4.TopSurface = Enum.SurfaceType.Smooth
-
-Part5.Anchored = true
-Part5.BottomSurface = Enum.SurfaceType.Smooth
-Part5.BrickColor = BrickColor.new([[Bright green]])
-Part5.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part5.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part5.Material = Enum.Material.Grass
-Part5.Parent = workspace
-Part5.Position = Vector3.new(425.2928771972656, 1598.164306640625, 1865.377685546875)
-Part5.Size = Vector3.new(100, 1, 100)
-Part5.TopSurface = Enum.SurfaceType.Smooth
-
-Part6.Anchored = true
-Part6.BottomSurface = Enum.SurfaceType.Smooth
-Part6.BrickColor = BrickColor.new([[Bright green]])
-Part6.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part6.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part6.Material = Enum.Material.Grass
-Part6.Parent = workspace
-Part6.Position = Vector3.new(7445.36181640625, 1659.995849609375, 5274.8115234375)
-Part6.Size = Vector3.new(100, 1, 100)
-Part6.TopSurface = Enum.SurfaceType.Smooth
-
-Part7.Anchored = true
-Part7.BottomSurface = Enum.SurfaceType.Smooth
-Part7.BrickColor = BrickColor.new([[Bright green]])
-Part7.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part7.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part7.Material = Enum.Material.Grass
-Part7.Parent = workspace
-Part7.Position = Vector3.new(7633.02978515625, 1638.10595703125, 4380.2158203125)
-Part7.Size = Vector3.new(100, 1, 100)
-Part7.TopSurface = Enum.SurfaceType.Smooth
-
-Part8.Anchored = true
-Part8.BottomSurface = Enum.SurfaceType.Smooth
-Part8.BrickColor = BrickColor.new([[Bright green]])
-Part8.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part8.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part8.Material = Enum.Material.Grass
-Part8.Parent = workspace
-Part8.Position = Vector3.new(-572.7197265625, 1690.5789794921875, -7083.59033203125)
-Part8.Size = Vector3.new(100, 1, 100)
-Part8.TopSurface = Enum.SurfaceType.Smooth
-
-Part9.Anchored = true
-Part9.BottomSurface = Enum.SurfaceType.Smooth
-Part9.BrickColor = BrickColor.new([[Bright green]])
-Part9.CFrame = CFrame.new(9999, 50, 9999, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-Part9.Color = Color3.new(0.294118, 0.592157, 0.294118)
-Part9.Material = Enum.Material.Grass
-Part9.Parent = workspace
-Part9.Position = Vector3.new(-5960.37646484375, 1678.9237060546875, -3537.199951171875)
-Part9.Size = Vector3.new(100, 1, 100)
-Part9.TopSurface = Enum.SurfaceType.Smooth
-
-end)
-
-frr:NewButton("Arrendehl TP", "Teleport to arrendehl ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1195.0460205078125, 1672.976318359375, -7990.0791015625)
-end)
-
-frr:NewButton("Arabah TP", "Teleport to arabah ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(6712.2255859375, 1659.433837890625, 6076.82421875)
-end)
-
-frr:NewButton("Gunjo TP", "Teleport to Fort Gunjo ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1199.67578125, 1639.7503662109375, -856.88623046875)
-end)
-
-frr:NewButton("ToG TP", "Teleport to Tower of God ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6127.904296875, 1814.6807861328125, -1472.3385009765625)
-end)
-
-hrr:NewButton("Hill Kira TP", "Teleport to Kira Hill ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(425.2928771972656, 1600.164306640625, 1865.377685546875) --HILL KIRA
-end)
-hrr:NewButton("Hill Tattoine1 TP", "Teleport to Tatooine1 Hill ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7445.36181640625, 1663.995849609375, 5274.8115234375) --HILL TATTOINE1
-end)
-hrr:NewButton("Hill Tattoine2 TP", "Teleport to Tatooine2 Hill ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7633.02978515625, 1647.10595703125, 4380.2158203125) --HILL TATTOINE2
-end)
-hrr:NewButton("Hill Ilum TP", "Teleport to Ilum Hill ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-572.7197265625, 1695.5789794921875, -7083.59033203125) --HILL ILUM
-end)
-hrr:NewButton("Hill Kashyyk TP", "Teleport to Kashyyk Hill ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5960.37646484375, 1678.9237060546875, -3537.199951171875) --HILL KASHYYK
-end)
+ 
+-- Now, you can add functionality to the button, for example:
+local function onButtonClicked()
+    if statusButton.Text == "Off" then
+        statusButton.Text = "On"
+        -- Add code to enable the player ESP here
+    else
+        statusButton.Text = "Off"
+        -- Add code to disable the player ESP here
+        
+        -- Remove BillboardGui for each player's head when disabling the ESP
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
+            if billboardGui then
+                billboardGui:Destroy()
+            end
+        end
+    end
+    -- Update the visibility of BillboardGui elements after clicking the button
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
+        if billboardGui then
+            billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On"
+        end
+    end
+end
+ 
+statusButton.MouseButton1Click:Connect(onButtonClicked)
