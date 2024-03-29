@@ -5,7 +5,7 @@ library.rank = "User"
 local Wm = library:Watermark("Jew Mode | v" .. library.version ..  " | " .. library:GetUsername() .. " | rank: " .. library.rank)
 local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
 coroutine.wrap(function()
-    while wait(.75) do
+    while wait(.05) do
         FpsWm:Text("fps: " .. library.fps)
     end
 end)()
@@ -18,7 +18,7 @@ local LoadingXSX = Notif:Notify("Loading Jew Mode, please be patient.", 5, "info
 library.title = "Jew Mode"
 
 library:Introduction()
-wait(1)
+wait(0.1)
 local Init = library:Init()
 
 local Tab1 = Init:NewTab("Settings")
