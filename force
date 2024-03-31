@@ -33,7 +33,58 @@ local Tab3 = Init:NewTab("Teleports")
 local Section1 = Tab1:NewSection("Welcome to Jew Mode")
 
 
-local Label1 = Tab1:NewLabel("Type Shit", "center")--"left", "center", "right"
+
+local TP1 = Tab1:NewButton("LOAD AREAS", function()
+    local locations = {
+        Vector3.new(-312.9765625, 1543.8948974609375, 2290.623779296875),
+        Vector3.new(-1122.7392578125, 1571.2718505859375, -471.87811279296875),
+        Vector3.new(-6353.763671875, 1701.53173828125, -3682.848388671875),
+        Vector3.new(-6992.5654296875, 1843.9952392578125, -3128.0966796875),
+        Vector3.new(7792.33349609375, 1610.919677734375, 5435.20703125),
+        Vector3.new(7564.6025390625, 1755.16259765625, 2780.637939453125),
+        Vector3.new(-206.93617248535156, 1614.49951171875, -7136.13720703125),
+        Vector3.new(-647.4029541015625, 1639.290771484375, -8589.294921875)
+    }
+    
+    local player = game.Players.LocalPlayer
+    local humanoidRootPart = player.Character.HumanoidRootPart
+    
+    for _, location in ipairs(locations) do
+        humanoidRootPart.CFrame = CFrame.new(location)
+        wait(0.8) 
+    end
+    
+end)
+local Label11 = Tab1:NewLabel("Type Shit", "center")--"left", "center", "right"
+
+local TP1 = Tab1:NewButton("EGG TP", function()
+    local player = game.Players.LocalPlayer
+local character = player.Character
+local humanoidRootPart = character.HumanoidRootPart
+local workspace = game:GetService("Workspace")
+
+-- Function to check if a model has a child named "Circle.003"
+local function checkModel(model)
+    if model:FindFirstChild("Circle.003") then
+        local meshPart = model:FindFirstChildOfClass("MeshPart")
+        if meshPart then
+            humanoidRootPart.CFrame = meshPart.CFrame
+            return true
+        end
+    end
+    return false
+end
+
+-- Iterate through all models in the workspace
+for _, model in ipairs(workspace:GetDescendants()) do
+    if model:IsA("Model") then
+        if checkModel(model) then
+            break  -- Exit loop if a suitable model is found
+        end
+    end
+end
+
+end)
 
 
 local TP1 = Tab1:NewButton("Abime Boss Room", function()
